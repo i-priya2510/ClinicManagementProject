@@ -1,0 +1,69 @@
+﻿@model ClinicManagementProject.Models.Doctors
+
+@{
+    ViewData["Title"] = "AddDoctor";
+}
+
+<h1>Add Doctor</h1>
+<script>
+    function blockSpecialChar(e) {
+        var k;
+        document.all ? k = e.keyCode : k = e.which;
+        return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+    }
+</script>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddDoctor">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" onkeypress="return blockSpecialChar(event)"/>
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" onkeypress="return blockSpecialChar(event)"/>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sex" class="control-label"></label>
+                @Html.RadioButton("Sex", "Male") <span>Male</span>
+                @Html.RadioButton("Sex", "Female") <span>Female</span>
+                <span asp-validation-for="Sex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Specialization" class="control-label"></label>
+                @Html.DropDownList("Specialization",new List<SelectListItem>
+               {
+                   new SelectListItem{Value="General",Text="General"},
+                   new SelectListItem{Value="Internal Medicine",Text="Internal Medicine"},
+                   new SelectListItem{Value="Pediatrics",Text="Pediatrics"},
+                   new SelectListItem{Value="Orthopedics",Text="Orthopedics"},
+                   new SelectListItem{Value="Ophthalmology",Text="Ophthalmology"}
+
+                },"Specialization",new { @class = "form-control" })
+                <span asp-validation-for="Specialization" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VH_From" class="control-label"></label>
+                <input asp-for="VH_From" class="form-control" />
+                <span asp-validation-for="VH_From" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VH_To" class="control-label"></label>
+                <input asp-for="VH_To" class="form-control" />
+                <span asp-validation-for="VH_To" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<span class="badge badge-success">@ViewBag.adddoc</span>
+
+<div>
+    <a asp-action="Index">Return to Home</a>
+</div>
